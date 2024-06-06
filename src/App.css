@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::selection {
+  color: black;
+  background-color: #c24d2c;
+}
+
+body {
+  font-family: "Archivo", sans-serif;
+}
