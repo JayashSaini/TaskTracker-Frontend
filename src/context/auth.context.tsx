@@ -44,11 +44,11 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsLoading,
       (res) => {
         const { data } = res;
-        console.log("data is : ", data);
         setUser(data);
         setToken(data.accessToken);
         LocalStorage.set("user", data);
         LocalStorage.set("token", data.accessToken);
+        alert("login successfully");
         navigate("/");
       },
       alert // Display error alerts on request failure
