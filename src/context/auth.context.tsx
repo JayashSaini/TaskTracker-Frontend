@@ -48,7 +48,6 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setToken(data.accessToken);
         LocalStorage.set("user", data);
         LocalStorage.set("token", data.accessToken);
-        alert("login successfully");
         navigate("/");
       },
       alert // Display error alerts on request failure

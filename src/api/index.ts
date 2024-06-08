@@ -23,7 +23,7 @@ apiClient.interceptors.request.use(
   }
 );
 
-// API functions for different actions
+// API functions for User actions
 const loginUser = (data: { username: string; password: string }) => {
   return apiClient.post("/user/login", data);
 };
@@ -40,5 +40,34 @@ const logoutUser = () => {
   return apiClient.post("/user/logout");
 };
 
+// Todo's Api
+const getAllTodos = () => {
+  return apiClient.get("/todo");
+};
+
+const createTodo = (data: {
+  title: string;
+  description: string;
+  isCompleted: boolean;
+}) => {
+  return apiClient.post("/todo", data);
+};
+
+const toggleIsCompleted = (todoId: string) => {
+  return apiClient.patch(`/todo/toggle/${todoId}`);
+};
+
+const deleteTodo = (todoId: string) => {
+  return apiClient.delete(`/todo/${todoId}`);
+};
+
 // Export all the API functions
-export { loginUser, logoutUser, registerUser };
+export {
+  loginUser,
+  logoutUser,
+  registerUser,
+  getAllTodos,
+  createTodo,
+  toggleIsCompleted,
+  deleteTodo,
+};

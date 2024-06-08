@@ -1,16 +1,24 @@
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import Task from "./pages/task";
 
 function App() {
   return (
     <>
       <Routes>
         {/* Private chat route: Can only be accessed by authenticated users */}
-        <Route path="/" element={<PrivateRoute>{<>Home</>}</PrivateRoute>} />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Task />
+            </PrivateRoute>
+          }
+        />
 
         {/* Public login route: Accessible by everyone */}
         <Route
