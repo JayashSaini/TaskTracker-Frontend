@@ -29,13 +29,19 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center flex-col p-4 sm:h-screen h-[90vh] w-screen">
-      <div className="sm:w-1/2 w-full sm:p-8 p-4 flex justify-center items-center gap-5 flex-col bg-[#1a2639] shadow-md rounded-2xl my-16 border-secondary border-[1px]">
+      <form
+        onSubmit={async () => {
+          await handleLogin();
+        }}
+        className="sm:w-1/2 w-full sm:p-8 p-4 flex justify-center items-center gap-5 flex-col bg-[#1a2639] shadow-md rounded-2xl my-16 border-secondary border-[1px]"
+      >
         <h1 className="text-2xl m-4 ">Login</h1>
         {/* Input for entering the username */}
         <Input
           placeholder="Enter the username..."
           value={data.username}
           onChange={handleDataChange("username")}
+          required={true}
         />
         {/* Input for entering the password */}
         <Input
@@ -43,16 +49,10 @@ const Login = () => {
           type="password"
           value={data.password}
           onChange={handleDataChange("password")}
+          required={true}
         />
         {/* Button to initiate the login process */}
-        <Button
-          fullWidth
-          onClick={async () => {
-            await handleLogin();
-          }}
-        >
-          Login
-        </Button>
+        <Button fullWidth>Login</Button>
         {/* Link to the registration page */}
         <small className="text-zinc-300">
           Don&apos;t have an account?{" "}
@@ -60,7 +60,7 @@ const Login = () => {
             Register
           </a>
         </small>
-      </div>
+      </form>
     </div>
   );
 };

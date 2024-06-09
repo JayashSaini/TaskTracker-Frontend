@@ -45,11 +45,7 @@ const getAllTodos = () => {
   return apiClient.get("/todo");
 };
 
-const createTodo = (data: {
-  title: string;
-  description: string;
-  isCompleted: boolean;
-}) => {
+const createTodo = (data: { title: string; description: string }) => {
   return apiClient.post("/todo", data);
 };
 

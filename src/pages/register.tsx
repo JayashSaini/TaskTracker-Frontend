@@ -32,7 +32,10 @@ const Register = () => {
   return (
     // Register form UI
     <div className="flex justify-center items-center flex-col p-4 sm:h-screen h-[90vh] w-screen">
-      <div className="sm:w-1/2 w-full sm:p-8 p-4 flex justify-center items-center gap-5 flex-col bg-[#1a2639] shadow-md rounded-2xl my-16 border-secondary border-[1px]">
+      <form
+        onSubmit={handleRegister}
+        className="sm:w-1/2 w-full sm:p-8 p-4 flex justify-center items-center gap-5 flex-col bg-[#1a2639] shadow-md rounded-2xl my-16 border-secondary border-[1px]"
+      >
         <h1 className="text-2xl m-4 ">Sign up</h1>
         {/* Input fields for username, password, and email */}
         <Input
@@ -40,22 +43,23 @@ const Register = () => {
           type="email"
           value={data.email}
           onChange={handleDataChange("email")}
+          required={true}
         />
         <Input
           placeholder="Enter the username..."
           value={data.username}
           onChange={handleDataChange("username")}
+          required={true}
         />
         <Input
           placeholder="Enter the password..."
           type="password"
           value={data.password}
           onChange={handleDataChange("password")}
+          required={true}
         />
         {/* Register button */}
-        <Button fullWidth onClick={handleRegister}>
-          Sign up
-        </Button>
+        <Button fullWidth>Sign up</Button>
         {/* Login link */}
         <small className="text-zinc-300">
           Already have an account?{" "}
@@ -63,7 +67,7 @@ const Register = () => {
             Login
           </a>
         </small>
-      </div>
+      </form>
     </div>
   );
 };
