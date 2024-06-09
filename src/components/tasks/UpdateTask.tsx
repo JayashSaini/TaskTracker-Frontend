@@ -2,11 +2,12 @@ import { IoIosClose } from "react-icons/io";
 import TextField from "@mui/material/TextField";
 import Button from "../Button";
 
-const AddTask: React.FC<{
-  toggleAddTaskDialog: () => void;
-  addTaskHandler: (e: any) => void;
+const UpdateTask: React.FC<{
+  toggleUpdateTaskDialog: () => void;
+  updateTaskHandler: (e: any) => void;
   title: string;
   description: string;
+  updateTaskId: string;
   onChangeTitle: (val: string) => void;
   onChangeDescription: (val: string) => void;
 }> = (props) => {
@@ -14,17 +15,19 @@ const AddTask: React.FC<{
     <div className="w-full h-screen fixed z-50 bg-[#0008] flex items-center justify-center p-3">
       <div className="max-w-[600px] w-full border-[2px] border-[#ffffff3d] bg-[#172031dc] rounded-lg p-6 shadow-sm shadow-gray-600">
         <div className="flex justify-between items-center w-full">
-          <h2 className="sm:text-2xl text-xl  text-[#ff7f5c] oxygen-bold ">
-            Add Task
+          <h2 className="sm:text-2xl text-xl text-[#ff7f5c] oxygen-bold ">
+            Update Task
           </h2>
           <IoIosClose
             className="text-3xl cursor-pointer"
-            onClick={props.toggleAddTaskDialog}
+            onClick={props.toggleUpdateTaskDialog}
           />
         </div>
         <form
           className="mt-4 flex flex-col gap-4"
-          onSubmit={props.addTaskHandler}
+          onSubmit={(e: any) => {
+            props.updateTaskHandler(e);
+          }}
         >
           <TextField
             id="outlined-multiline-flexible"
@@ -62,7 +65,7 @@ const AddTask: React.FC<{
             id="outlined-multiline-static"
             label="Description"
             multiline
-            rows={4}
+            rows={5}
             defaultValue={props.description}
             sx={{
               "& .MuiOutlinedInput-root": {
@@ -90,11 +93,11 @@ const AddTask: React.FC<{
             }}
             required={true}
           />
-          <Button fullWidth>Add Task</Button>
+          <Button fullWidth>Save Task</Button>
         </form>
       </div>
     </div>
   );
 };
 
-export default AddTask;
+export default UpdateTask;

@@ -4,6 +4,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { FiEdit } from "react-icons/fi";
 
 export default function AccordionTransition(data: {
   title: string;
@@ -12,6 +13,7 @@ export default function AccordionTransition(data: {
   delete: () => void;
   createdAt: string;
   toggleIsCompleted: () => void;
+  updateTaskHandler: () => void;
 }) {
   const [expanded, setExpanded] = React.useState(false);
   const [isCompletedState, setIsCompleted] = React.useState<boolean>(
@@ -63,6 +65,7 @@ export default function AccordionTransition(data: {
         >
           {data.description}
         </Typography>
+
         <Typography
           sx={{
             fontSize: "0.8rem", // Change font size
@@ -71,18 +74,38 @@ export default function AccordionTransition(data: {
         >
           Created At : {data.createdAt}
         </Typography>
+
         <div className="flex justify-between w-full items-center mt-4">
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              checked={isCompletedState}
-              onChange={() => {
-                setIsCompleted((prev) => !prev);
-              }}
-              onClick={data.toggleIsCompleted}
-              className="form-checkbox h-4 w-4 "
-            />
-            <label className="ml-2 text-white text-sm">Completed</label>
+          <div className="flex gap-2 items-center">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                checked={isCompletedState}
+                onChange={() => {
+                  setIsCompleted((prev) => !prev);
+                }}
+                onClick={data.toggleIsCompleted}
+                className="form-checkbox h-4 w-4 "
+              />
+              <label
+                htmlFor="complete"
+                onClick={() => {
+                  setIsCompleted((prev) => !prev);
+                  data.toggleIsCompleted();
+                }}
+                className="ml-2 text-white text-sm cursor-pointer select-none hover:underline"
+              >
+                Completed
+              </label>
+            </div>
+            |
+            <div
+              className="flex items-center gap-1 cursor-pointer"
+              onClick={data.updateTaskHandler}
+            >
+              <FiEdit />
+              <span className="hover:underline">Update Task</span>
+            </div>
           </div>
           <button
             className="bg-[#c24d2c] text-white font-bold py-2 px-4 rounded-lg text-sm mt-2"

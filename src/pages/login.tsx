@@ -30,7 +30,8 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center flex-col p-4 sm:h-screen h-[90vh] w-screen">
       <form
-        onSubmit={async () => {
+        onSubmit={async (e) => {
+          e.preventDefault();
           await handleLogin();
         }}
         className="sm:w-1/2 w-full sm:p-8 p-4 flex justify-center items-center gap-5 flex-col bg-[#1a2639] shadow-md rounded-2xl my-16 border-secondary border-[1px]"

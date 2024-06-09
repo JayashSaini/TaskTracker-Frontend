@@ -1,30 +1,54 @@
-# React + TypeScript + Vite
+# Todo Frontend App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a Frontend application for a Todo app built with TypeScript, React.js, Context Api, Tailwind css and UI library MUI and Sonner etc.
 
-Currently, two official plugins are available:
+## Backend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Github Repository - [Todo Backend](https://github.com/JayashSaini/Todo-Backend)
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- TypeScript
+- React.js
+- Context Api
+- Tailwind CSS
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/todo-backend.git
+cd todo-backend
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Install Dependencies:
+
+```bash
+npm install
+```
+
+3. Set up environment variables. Create a [.env](./.env.sample)
+   file in the root directory and add the following:
+
+4. Run Application:
+
+```bash
+npm start
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to open a pull request or report any issues.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Developer Details
+
+- **Name**: Jayash Saini
+- **Mobile 📱**: 9079830785
+- **LinkedIn**: [Jayash Saini](https://www.linkedin.com/in/jayash-saini-371bb0267/)
+
+Feel free to use and modify this `README.md` file as needed for your project.

@@ -49,6 +49,13 @@ const createTodo = (data: { title: string; description: string }) => {
   return apiClient.post("/todo", data);
 };
 
+const updateTodo = (
+  data: { title: string; description: string },
+  todoId: string
+) => {
+  return apiClient.patch(`/todo/${todoId}`, data);
+};
+
 const toggleIsCompleted = (todoId: string) => {
   return apiClient.patch(`/todo/toggle/${todoId}`);
 };
@@ -57,6 +64,13 @@ const deleteTodo = (todoId: string) => {
   return apiClient.delete(`/todo/${todoId}`);
 };
 
+const clearTask = () => {
+  return apiClient.delete("/todo");
+};
+
+const healthCheck = () => {
+  return apiClient.get("/healthcheck");
+};
 // Export all the API functions
 export {
   loginUser,
@@ -66,4 +80,7 @@ export {
   createTodo,
   toggleIsCompleted,
   deleteTodo,
+  clearTask,
+  updateTodo,
+  healthCheck,
 };

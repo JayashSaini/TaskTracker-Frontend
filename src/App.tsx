@@ -5,9 +5,30 @@ import PrivateRoute from "./components/PrivateRoute";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Task from "./pages/task";
+import { healthCheck } from "./api";
+import { useState, useEffect } from "react";
+import Loader from "./components/Loader";
 
 function App() {
-  return (
+  const [isLoading, setIsLoading] = useState<boolean>(true); // Set initial loading state to true
+
+  useEffect(() => {
+    const activeServer = async () => {
+      try {
+        await healthCheck();
+      } catch (error) {
+        alert("Server is down. Please try again later.");
+      } finally {
+        setIsLoading(false); // Set loading to false once the healthCheck is completed
+      }
+    };
+
+    activeServer();
+  }, []); // Empty dependency array ensures the effect runs only once when the component mounts
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <>
       <Routes>
         {/* Private chat route: Can only be accessed by authenticated users */}
