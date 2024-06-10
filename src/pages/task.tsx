@@ -19,6 +19,7 @@ import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { styled } from "@mui/system";
 import UpdateTask from "../components/tasks/UpdateTask.js";
+import { useNavigate } from "react-router-dom";
 
 const Task = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -40,6 +41,7 @@ const Task = () => {
   const [selectedTask, setSelectedTask] = useState<any[]>([]);
 
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   // Function to handle the logout process
   const logoutHandler = () => {
@@ -116,7 +118,10 @@ const Task = () => {
           setTasks(data);
           setSelectedTask(data);
         },
-        alert // Display error alerts on request failure
+        (errorMessage: string) => {
+          toast.error(errorMessage);
+          navigate("/login");
+        }
       );
     })();
   }, []);
