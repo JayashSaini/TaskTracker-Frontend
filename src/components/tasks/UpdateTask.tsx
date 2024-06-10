@@ -1,13 +1,15 @@
 import { IoIosClose } from "react-icons/io";
 import TextField from "@mui/material/TextField";
 import Button from "../Button";
+import { Oval } from "react-loader-spinner";
 
 const UpdateTask: React.FC<{
   toggleUpdateTaskDialog: () => void;
-  updateTaskHandler: (e: any) => void;
+  updateTaskHandler: () => void;
   title: string;
   description: string;
   updateTaskId: string;
+  isLoading: boolean;
   onChangeTitle: (val: string) => void;
   onChangeDescription: (val: string) => void;
 }> = (props) => {
@@ -26,7 +28,10 @@ const UpdateTask: React.FC<{
         <form
           className="mt-4 flex flex-col gap-4"
           onSubmit={(e: any) => {
-            props.updateTaskHandler(e);
+            e.preventDefault();
+            if (!props.isLoading) {
+              props.updateTaskHandler();
+            }
           }}
         >
           <TextField
@@ -93,7 +98,21 @@ const UpdateTask: React.FC<{
             }}
             required={true}
           />
-          <Button fullWidth>Save Task</Button>
+          <Button fullWidth>
+            {props.isLoading ? (
+              <Oval
+                visible={true}
+                height="30"
+                width="30"
+                color="#fff"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : (
+              "Save Task"
+            )}
+          </Button>
         </form>
       </div>
     </div>

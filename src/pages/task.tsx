@@ -25,6 +25,9 @@ const Task = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  // button Loader
+  const [isButtonLoader, setIsButtonLoader] = useState<boolean>(false);
+
   const [addTaskDialog, setAddTaskDialog] = useState<boolean>(false);
   const [updateTaskDialog, setUpdateTaskDialog] = useState<boolean>(false);
 
@@ -51,8 +54,8 @@ const Task = () => {
   };
 
   // add task handler
-  const addTaskHandler = async (e: any) => {
-    e.preventDefault();
+  const addTaskHandler = async () => {
+    setIsButtonLoader(true);
     await requestHandler(
       async () => await createTodo({ title, description }),
       null,
@@ -66,15 +69,19 @@ const Task = () => {
         setSelectedTask((prev: any) => {
           return [data, ...prev];
         });
+        setIsButtonLoader(false);
         toggleAddTaskDialog();
         toast.success("Task added successfully");
       },
-      alert
+      (message: string) => {
+        toast.error(message);
+      }
     );
+    setIsButtonLoader(false);
   };
 
-  const updateTaskHandler = async (e: any) => {
-    e.preventDefault();
+  const updateTaskHandler = async () => {
+    setIsButtonLoader(true);
     await requestHandler(
       async () =>
         await updateTodo(
@@ -100,11 +107,15 @@ const Task = () => {
           );
         });
 
+        setIsButtonLoader(false);
         toggleUpdateTaskDialog();
         toast.success("Task updated successfully");
       },
-      alert
+      (message: string) => {
+        toast.error(message);
+      }
     );
+    setIsButtonLoader(false);
   };
 
   // get user tasks from the database
@@ -133,7 +144,9 @@ const Task = () => {
         async () => await toggleIsCompleted(taskId),
         null,
         () => {},
-        alert // Display error alerts on request failure
+        (message: string) => {
+          toast.error(message);
+        } // Display error alerts on request failure
       );
     })();
   };
@@ -151,7 +164,9 @@ const Task = () => {
         setTasks(updatedTasks);
         toast.success("Task deleted successfully");
       },
-      alert // Display error alerts on request failure
+      (message: string) => {
+        toast.error(message);
+      } // Display error alerts on request failure
     );
   };
 
@@ -191,7 +206,9 @@ const Task = () => {
         setTasks([]);
         toast.success("Tasks cleared successfully");
       },
-      alert
+      (message: string) => {
+        toast.error(message);
+      }
     );
   };
 
@@ -239,6 +256,7 @@ const Task = () => {
           onChangeDescription={(val: string) => {
             setDescription(val);
           }}
+          isLoading={isButtonLoader}
         />
       )}
       {updateTaskDialog && (
@@ -254,6 +272,7 @@ const Task = () => {
           onChangeDescription={(val: string) => {
             setUpdateDescription(val);
           }}
+          isLoading={isButtonLoader}
         />
       )}
       <div className="relative w-full min-h-screen flex justify-center items-start p-5 pt-10 ">
@@ -355,7 +374,9 @@ const Task = () => {
                     description={task.description}
                     isCompleted={task.isCompleted}
                     delete={async () => {
+                      setIsButtonLoader(true);
                       await deletedTaskHandler(task.id);
+                      setIsButtonLoader(false);
                     }}
                     createdAt={extractDate(task.createdAt)}
                     toggleIsCompleted={async () => {
@@ -367,6 +388,7 @@ const Task = () => {
                       setUpdateDescription(task.description);
                       toggleUpdateTaskDialog();
                     }}
+                    isLoading={isButtonLoader}
                   />
                 </div>
               );
@@ -378,7 +400,7 @@ const Task = () => {
             </div>
           )}
         </div>
-        <footer className="w-full text-center absolute bottom-1 text-sm  text-[#ffffffb7] px-10">
+        <footer className="w-full text-center absolute bottom-8 text-sm  text-[#ffffffb7] px-10">
           Created By Jayash |{" "}
           <a
             target="_blank"

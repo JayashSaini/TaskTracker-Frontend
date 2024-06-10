@@ -8,6 +8,7 @@ import Task from "./pages/task";
 import { healthCheck } from "./api";
 import { useState, useEffect } from "react";
 import Loader from "./components/Loader";
+import { toast } from "sonner";
 
 function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true); // Set initial loading state to true
@@ -17,7 +18,7 @@ function App() {
       try {
         await healthCheck();
       } catch (error) {
-        alert("Server is down. Please try again later.");
+        toast.error("Server is down. Please try again later.");
       } finally {
         setIsLoading(false); // Set loading to false once the healthCheck is completed
       }

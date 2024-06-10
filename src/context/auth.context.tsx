@@ -4,6 +4,7 @@ import { loginUser, logoutUser, registerUser } from "../api";
 import Loader from "../components/Loader";
 import { UserInterface } from "../interfaces/user";
 import { LocalStorage, requestHandler } from "../util";
+import { toast } from "sonner";
 
 // Create a context to manage authentication-related data and functions
 const AuthContext = createContext<{
@@ -50,7 +51,9 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         LocalStorage.set("token", data.accessToken);
         navigate("/");
       },
-      alert // Display error alerts on request failure
+      (message: string) => {
+        toast.error(message);
+      }
     );
   };
 
@@ -64,10 +67,12 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       async () => await registerUser(data),
       setIsLoading,
       () => {
-        alert("Account created successfully! Go ahead and login.");
+        toast.success("Account created successfully! Go ahead and login.");
         navigate("/login"); // Redirect to the login page after successful registration
       },
-      alert // Display error alerts on request failure
+      (message: string) => {
+        toast.error(message);
+      }
     );
   };
 
@@ -82,7 +87,9 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         LocalStorage.clear(); // Clear local storage on logout
         navigate("/login"); // Redirect to the login page after successful logout
       },
-      alert // Display error alerts on request failure
+      (message: string) => {
+        toast.error(message);
+      } // Display error alerts on request failure
     );
   };
 

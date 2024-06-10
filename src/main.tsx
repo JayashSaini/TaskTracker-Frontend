@@ -9,7 +9,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <AuthProvider>
       <App />
-      <Toaster className="bg-black" position="top-center" duration={4000} />
     </AuthProvider>
+    <Toaster className="bg-black" position="top-center" duration={4000} />
   </BrowserRouter>
 );

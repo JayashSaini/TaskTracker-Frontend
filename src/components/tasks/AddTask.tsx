@@ -1,12 +1,14 @@
 import { IoIosClose } from "react-icons/io";
 import TextField from "@mui/material/TextField";
 import Button from "../Button";
+import { Oval } from "react-loader-spinner";
 
 const AddTask: React.FC<{
   toggleAddTaskDialog: () => void;
-  addTaskHandler: (e: any) => void;
+  addTaskHandler: () => void;
   title: string;
   description: string;
+  isLoading: boolean;
   onChangeTitle: (val: string) => void;
   onChangeDescription: (val: string) => void;
 }> = (props) => {
@@ -24,7 +26,12 @@ const AddTask: React.FC<{
         </div>
         <form
           className="mt-4 flex flex-col gap-4"
-          onSubmit={props.addTaskHandler}
+          onSubmit={(e: any) => {
+            e.preventDefault();
+            if (!props.isLoading) {
+              props.addTaskHandler();
+            }
+          }}
         >
           <TextField
             id="outlined-multiline-flexible"
@@ -90,7 +97,21 @@ const AddTask: React.FC<{
             }}
             required={true}
           />
-          <Button fullWidth>Add Task</Button>
+          <Button fullWidth>
+            {props.isLoading ? (
+              <Oval
+                visible={true}
+                height="30"
+                width="30"
+                color="#fff"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : (
+              "Add Task"
+            )}
+          </Button>
         </form>
       </div>
     </div>
