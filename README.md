@@ -1,4 +1,4 @@
-# Todo Frontend App
+# TaskTracker Frontend
 
 This is a Frontend application for a Todo app built with TypeScript, React.js, Context Api, Tailwind css and UI library MUI and Sonner etc.
 
