@@ -1,10 +1,10 @@
 # TaskTracker Frontend
 
-This is a Frontend application for a Todo app built with TypeScript, React.js, Context Api, Tailwind css and UI library MUI and Sonner etc.
+This is a Frontend application for a Task managing app built with TypeScript, React.js, Context Api, Tailwind css and UI library MUI and Sonner etc.
 
 ## Backend
 
-Github Repository - [Todo Backend](https://github.com/JayashSaini/Todo-Backend)
+Github Repository - [TaskTracker Backend](https://github.com/JayashSaini/TaskTracker-Backend)
 
 ## Tech Stack
 
