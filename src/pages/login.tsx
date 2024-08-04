@@ -34,9 +34,9 @@ const Login = () => {
           e.preventDefault();
           await handleLogin();
         }}
-        className="sm:w-1/2 w-full sm:p-8 p-4 flex justify-center items-center gap-5 flex-col bg-[#1a2639] shadow-md rounded-2xl my-16 border-secondary border-[1px]"
+        className="sm:w-1/2 w-full sm:p-8 p-4 flex justify-center items-center gap-5 flex-col bg-[#1a2639] shadow-md rounded-2xl my-16 border-gray-200 border-[1px]"
       >
-        <h1 className="text-2xl m-4 ">Login</h1>
+        <h1 className="text-2xl m-4 text-white ">Login</h1>
         {/* Input for entering the username */}
         <Input
           placeholder="Enter the username..."

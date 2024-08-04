@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useAuth } from "../context/auth.context";
 import { requestHandler } from "../util";
@@ -20,6 +20,15 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { styled } from "@mui/system";
 import UpdateTask from "../components/tasks/UpdateTask.js";
 import { useNavigate } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Task = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -33,6 +42,9 @@ const Task = () => {
 
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+
+  // sort & filter
+  const [sortType, setSortType] = useState("all");
 
   // to store updated tasks value
   const [updateTitle, setUpdateTitle] = useState<string>("");
@@ -128,6 +140,7 @@ const Task = () => {
           const { data } = res;
           setTasks(data);
           setSelectedTask(data);
+          console.log("this is still running");
         },
         (errorMessage: string) => {
           toast.error(errorMessage);
@@ -139,6 +152,16 @@ const Task = () => {
 
   // toggle Handler to complete when the user is completed task
   const toggleIsCompletedTask = async (taskId: string) => {
+    setTasks((prev) => {
+      return prev.map((task) =>
+        task._id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
+      );
+    });
+    setSelectedTask((prev) => {
+      return prev.map((task) =>
+        task._id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
+      );
+    });
     (async () => {
       await requestHandler(
         async () => await toggleIsCompleted(taskId),
@@ -210,6 +233,40 @@ const Task = () => {
         toast.error(message);
       }
     );
+  };
+
+  // filter tasks by status
+  const sortAndFilterHandler = (sortType: string) => {
+    console.log("sortType: ", sortType);
+    switch (sortType) {
+      case "completedTask":
+        setSelectedTask(tasks.filter((task: any) => task.isCompleted));
+        break;
+      case "activeTask":
+        setSelectedTask(tasks.filter((task: any) => !task.isCompleted));
+        break;
+      case "oldest":
+        // Sort tasks by createdAt in ascending order
+        setSelectedTask(
+          [...tasks].sort(
+            (a: any, b: any) =>
+              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          )
+        );
+        break;
+      case "newest":
+        // Sort tasks by updatedAt in descending order
+        setSelectedTask(
+          [...tasks].sort(
+            (a: any, b: any) =>
+              new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+          )
+        );
+        break;
+      default:
+        setSelectedTask(tasks);
+        return;
+    }
   };
 
   // custome search bar css
@@ -363,7 +420,36 @@ const Task = () => {
               Add Task
             </button>
           </div>
-
+          {/* SORT & FILTER Section  */}
+          <DropdownMenu>
+            <DropdownMenuTrigger>Sort & Filter</DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-gray-900">
+              <DropdownMenuLabel>Sort & Filter</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuRadioGroup
+                value={sortType}
+                onValueChange={(e) => {
+                  setSortType(e);
+                  sortAndFilterHandler(e);
+                }}
+                className="bg-gray-900"
+              >
+                <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="newest">
+                  Newest
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="oldest">
+                  Oldest
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="activeTask">
+                  Active Task
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="completedTask">
+                  Completed Task
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
           {/* Task Section */}
           {selectedTask.length > 0 ? (
             selectedTask.map((task: any) => {

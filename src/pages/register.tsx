@@ -34,9 +34,9 @@ const Register = () => {
     <div className="flex justify-center items-center flex-col p-4 sm:h-screen h-[90vh] w-screen">
       <form
         onSubmit={handleRegister}
-        className="sm:w-1/2 w-full sm:p-8 p-4 flex justify-center items-center gap-5 flex-col bg-[#1a2639] shadow-md rounded-2xl my-16 border-secondary border-[1px]"
+        className="sm:w-1/2 w-full sm:p-8 p-4 flex justify-center items-center gap-5 flex-col bg-[#1a2639] shadow-md rounded-2xl my-16 border-gray-200 border-[1px]"
       >
-        <h1 className="text-2xl m-4 ">Sign up</h1>
+        <h1 className="text-2xl m-4 text-white ">Sign up</h1>
         {/* Input fields for username, password, and email */}
         <Input
           placeholder="Enter the email..."
