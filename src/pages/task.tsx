@@ -97,13 +97,13 @@ const Task = () => {
 
         setTasks((prevTasks: any) => {
           return prevTasks.map((task: any) =>
-            task.id === data.id ? data : task
+            task._id === data._id ? data : task
           );
         });
 
         setSelectedTask((prevSelectedTask: any) => {
           return prevSelectedTask.map((task: any) =>
-            task.id === data.id ? data : task
+            task._id === data._id ? data : task
           );
         });
 
@@ -158,7 +158,7 @@ const Task = () => {
       null,
       () => {
         const updatedTasks = selectedTask.filter(
-          (task: any) => task.id !== taskId
+          (task: any) => task._id !== taskId
         );
         setSelectedTask(updatedTasks);
         setTasks(updatedTasks);
@@ -368,22 +368,22 @@ const Task = () => {
           {selectedTask.length > 0 ? (
             selectedTask.map((task: any) => {
               return (
-                <div key={task.id} className="bg-[#1a2639] my-2">
+                <div key={task._id} className="bg-[#1a2639] my-2">
                   <Accordion
                     title={task.title}
                     description={task.description}
                     isCompleted={task.isCompleted}
                     delete={async () => {
                       setIsButtonLoader(true);
-                      await deletedTaskHandler(task.id);
+                      await deletedTaskHandler(task._id);
                       setIsButtonLoader(false);
                     }}
                     createdAt={extractDate(task.createdAt)}
                     toggleIsCompleted={async () => {
-                      await toggleIsCompletedTask(task.id);
+                      await toggleIsCompletedTask(task._id);
                     }}
                     updateTaskHandler={() => {
-                      setUpdateTaskId(task.id);
+                      setUpdateTaskId(task._id);
                       setUpdateTitle(task.title);
                       setUpdateDescription(task.description);
                       toggleUpdateTaskDialog();
@@ -425,7 +425,7 @@ const Task = () => {
           >
             Mail
           </a>{" "}
-          | June-10-2024
+          | August-4-2024
         </footer>
       </div>
     </div>
